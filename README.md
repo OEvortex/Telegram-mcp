@@ -14,6 +14,9 @@
   <a href="https://github.com/anthropics/anthropic-cookbook/tree/main/model_context_protocol">
     <img src="https://img.shields.io/badge/protocol-MCP-blue" alt="MCP Protocol">
   </a>
+  <a href="https://deepwiki.com/OEvortex/tgmcp">
+    <img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki">
+  </a>
 </div>
 
 ## 📖 Overview
