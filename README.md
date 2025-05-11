@@ -176,27 +176,88 @@ TGMCP provides a comprehensive set of tools that can be utilized through the MCP
 - `get_chats` - List available chats with pagination
 - `list_chats` - Detailed metadata for users, groups, and channels
 - `get_chat` - Information about a specific chat
+- `get_direct_chat_by_contact` - Find a direct chat with a specific contact
 - `send_message` - Send text messages to any chat
+- `archive_chat` - Archive a chat
+- `unarchive_chat` - Unarchive a chat
+- `mute_chat` - Mute notifications for a chat
+- `unmute_chat` - Unmute notifications for a chat
+- `get_invite_link` - Get the invite link for a group or channel
+- `export_chat_invite` - Export a chat invite link
+- `join_chat_by_link` - Join a chat by invite link
+- `import_chat_invite` - Import a chat invite by hash
+
+### Message Operations
+- `get_messages` - Get paginated messages from a specific chat
+- `list_messages` - List messages with detailed information
+- `get_message_context` - Get context around a specific message
+- `forward_message` - Forward a message to another chat
+- `edit_message` - Edit a previously sent message
+- `delete_message` - Delete messages
+- `pin_message` - Pin a message in a chat
+- `unpin_message` - Unpin a message from a chat
+- `mark_as_read` - Mark messages as read
+- `reply_to_message` - Reply to a specific message
+- `search_messages` - Search for messages in a chat
+- `get_pinned_messages` - Get all pinned messages in a chat
+- `get_history` - Get chat history with customizable filters
 
 ### Contact Management
 - `list_contacts` - View all contacts in your Telegram account
 - `search_contacts` - Find contacts by name, username, or phone
+- `get_contact_ids` - Get contact IDs for specific contacts
+- `get_contact_chats` - Get chats with specific contacts
+- `get_last_interaction` - Get last interaction with a contact
 - `add_contact` - Add new contacts to your Telegram account
+- `delete_contact` - Delete contacts from your account
 - `block_user` - Block users from contacting you
+- `unblock_user` - Unblock previously blocked users
+- `import_contacts` - Import multiple contacts at once
+- `export_contacts` - Export all contacts to a structured format
+- `get_blocked_users` - Get a list of blocked users
+- `resolve_username` - Resolve a username to a Telegram entity
+- `search_public_chats` - Search for public chats
 
 ### Group Administration
 - `create_group` - Create new groups and add members
+- `create_channel` - Create a new broadcast channel
 - `invite_to_group` - Invite users to existing groups
+- `leave_chat` - Leave a group or channel
 - `get_participants` - List members of a group or channel
+- `edit_chat_title` - Change the title of a group or channel
+- `edit_chat_photo` - Change the photo of a group or channel
+- `delete_chat_photo` - Remove the photo from a group or channel
 - `promote_admin` - Give administrator privileges to users
+- `demote_admin` - Revoke administrator privileges
+- `ban_user` - Ban users from a group or channel
+- `unban_user` - Unban previously banned users
+- `get_admins` - List administrators of a group or channel
+- `get_banned_users` - List banned users
+- `get_recent_actions` - Get recent administrative actions
 
 ### Media Tools
 - `send_file` - Send documents, photos, or videos
 - `download_media` - Save media from messages to your device
-- `send_sticker` - Send stickers to chats
+- `get_media_info` - Get information about media in messages
 - `send_voice` - Send voice messages
+- `send_sticker` - Send stickers to chats
+- `get_sticker_sets` - Get available sticker sets
+- `get_gif_search` - Search for GIFs
+- `send_gif` - Send GIFs to chats
 
-A full list of available tools and their parameters can be found in the [documentation](https://github.com/OEvortex/tgmcp/blob/main/README.md#%EF%B8%8F-tools-available).
+### Profile Management
+- `get_me` - Get information about your own account
+- `update_profile` - Update profile information (name, bio)
+- `set_profile_photo` - Set a new profile photo
+- `delete_profile_photo` - Remove profile photos
+- `get_privacy_settings` - Get current privacy settings
+- `set_privacy_settings` - Update privacy settings
+- `get_user_photos` - Get a user's profile photos
+- `get_user_status` - Check a user's online status
+- `get_bot_info` - Get information about a bot
+- `set_bot_commands` - Configure bot commands
+
+
 
 ## 📚 Example
 
