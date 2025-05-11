@@ -68,6 +68,16 @@ TELEGRAM_API_HASH=your_api_hash
 TELEGRAM_SESSION_NAME=your_session_name
 # Optional: Use string session instead of file session
 # TELEGRAM_SESSION_STRING=your_session_string
+
+# Optional: Tool Configuration
+# Control which tool sets are enabled (default is true for all)
+# TGMCP_ENABLE_CHAT_TOOLS=true
+# TGMCP_ENABLE_CONTACT_TOOLS=true
+# TGMCP_ENABLE_MESSAGE_TOOLS=true
+# TGMCP_ENABLE_GROUP_TOOLS=true
+# TGMCP_ENABLE_MEDIA_TOOLS=true
+# TGMCP_ENABLE_PROFILE_TOOLS=true
+# TGMCP_ENABLE_ADMIN_TOOLS=true
 ```
 
 ### MCP Configuration
@@ -86,7 +96,15 @@ To use TGMCP with VS Code or other MCP-compatible applications, add it to your M
           "TELEGRAM_API_ID": "your_api_id",
           "TELEGRAM_API_HASH": "your_api_hash",
           "TELEGRAM_SESSION_STRING": "your_session_string",
-          "MCP_NONINTERACTIVE": "true"
+          "MCP_NONINTERACTIVE": "true",
+          
+          "TGMCP_ENABLE_CHAT_TOOLS": "true",
+          "TGMCP_ENABLE_CONTACT_TOOLS": "true",
+          "TGMCP_ENABLE_MESSAGE_TOOLS": "true",
+          "TGMCP_ENABLE_GROUP_TOOLS": "true",
+          "TGMCP_ENABLE_MEDIA_TOOLS": "true",
+          "TGMCP_ENABLE_PROFILE_TOOLS": "true",
+          "TGMCP_ENABLE_ADMIN_TOOLS": "true"
         }
       }
     }
@@ -111,12 +129,47 @@ To use TGMCP with VS Code or other MCP-compatible applications, add it to your M
           "TELEGRAM_API_ID": "your_api_id",
           "TELEGRAM_API_HASH": "your_api_hash",
           "TELEGRAM_SESSION_NAME": "your_session_name",
-          "MCP_NONINTERACTIVE": "true"
+          "MCP_NONINTERACTIVE": "true",
+          
+          "TGMCP_ENABLE_CHAT_TOOLS": "true",
+          "TGMCP_ENABLE_CONTACT_TOOLS": "true",
+          "TGMCP_ENABLE_MESSAGE_TOOLS": "true",
+          "TGMCP_ENABLE_GROUP_TOOLS": "true",
+          "TGMCP_ENABLE_MEDIA_TOOLS": "true",
+          "TGMCP_ENABLE_PROFILE_TOOLS": "true",
+          "TGMCP_ENABLE_ADMIN_TOOLS": "true"
         }
       }
     }
   }
 }
+```
+
+### Tool Configuration
+
+TGMCP allows you to selectively enable or disable specific tool sets using environment variables. This can be useful for:
+- Reducing the number of available tools for security or simplicity
+- Limiting functionality for specific use cases
+- Improving performance by loading only necessary components
+
+You can configure which tool sets are enabled by setting the following environment variables:
+
+| Environment Variable | Description | Default |
+|----------------------|-------------|---------|
+| `TGMCP_ENABLE_CHAT_TOOLS` | Enable/disable chat-related tools | `true` |
+| `TGMCP_ENABLE_CONTACT_TOOLS` | Enable/disable contact management tools | `true` |
+| `TGMCP_ENABLE_MESSAGE_TOOLS` | Enable/disable message operation tools | `true` |
+| `TGMCP_ENABLE_GROUP_TOOLS` | Enable/disable group administration tools | `true` |
+| `TGMCP_ENABLE_MEDIA_TOOLS` | Enable/disable media handling tools | `true` |
+| `TGMCP_ENABLE_PROFILE_TOOLS` | Enable/disable profile management tools | `true` |
+| `TGMCP_ENABLE_ADMIN_TOOLS` | Enable/disable administrative function tools | `true` |
+
+Set these variables to `true` or `false` to enable or disable the corresponding tool set. For example:
+
+```
+# Disable admin and group tools, enable everything else
+TGMCP_ENABLE_ADMIN_TOOLS=false
+TGMCP_ENABLE_GROUP_TOOLS=false
 ```
 
 ### First-Time Authentication
@@ -149,9 +202,14 @@ python -m tgmcp
 ### Use in Your Code
 ```python
 import asyncio
-from tgmcp import client
+import os
+from tgmcp import client, get_tool_config
 
 async def main():
+    # Optional: Configure which tools to enable
+    # These should be set before importing any tools
+    os.environ["TGMCP_ENABLE_ADMIN_TOOLS"] = "false"  # Disable admin tools
+    
     # Connect to Telegram
     await client.start()
     
@@ -161,6 +219,10 @@ async def main():
     
     # Send a message
     await client.send_message('username', 'Hello from TGMCP!')
+    
+    # Check which tool sets are enabled
+    tool_config = get_tool_config()
+    print("Enabled tool sets:", [k for k, v in tool_config.items() if v])
     
     # Disconnect when done
     await client.disconnect()
@@ -265,10 +327,13 @@ TGMCP provides a comprehensive set of tools that can be utilized through the MCP
 import asyncio
 import os
 from dotenv import load_dotenv
-from tgmcp import client
+from tgmcp import client, get_tool_config
 
 # Load environment variables
 load_dotenv()
+
+# Optional: Configure which tools to enable
+# os.environ["TGMCP_ENABLE_ADMIN_TOOLS"] = "false"  # Uncomment to disable admin tools
 
 async def example():
     # Start the client
@@ -280,6 +345,13 @@ async def example():
     for dialog in dialogs:
         chat_name = getattr(dialog.entity, "title", None) or getattr(dialog.entity, "first_name", "Unknown")
         print(f"- {chat_name} (ID: {dialog.entity.id})")
+    
+    # Display which tool sets are enabled
+    tool_config = get_tool_config()
+    print("\nEnabled tool sets:")
+    for tool_set, enabled in tool_config.items():
+        status = "✅ Enabled" if enabled else "❌ Disabled"
+        print(f"- {tool_set}: {status}")
     
     # Disconnect when done
     await client.disconnect()

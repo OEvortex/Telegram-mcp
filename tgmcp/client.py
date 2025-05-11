@@ -16,6 +16,9 @@ from mcp.server.fastmcp import FastMCP
 # Load environment variables
 load_dotenv()
 
+# Load tool configuration environment variables
+# This ensures they're loaded before any tool imports
+
 # Setup logging first
 logger = logging.getLogger("telegram_mcp")
 logger.setLevel(logging.ERROR)  # Set to ERROR for production, INFO for debugging
